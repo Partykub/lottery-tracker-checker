@@ -20,7 +20,6 @@ const convertDrawDateToId = (drawDate) => {
 const checkWinningNumber = (userNumber, lotteryData) => {
   const matchedPrizes = [];
 
-  // ตรวจรางวัลหลัก
   lotteryData.prizes.forEach((prize) => {
     prize.number.forEach((winningNumber) => {
       if (userNumber === winningNumber) {
@@ -32,7 +31,6 @@ const checkWinningNumber = (userNumber, lotteryData) => {
     });
   });
 
-  // ตรวจรางวัลเลขหน้า 3 ตัว / เลขท้าย 3 ตัว / เลขท้าย 2 ตัว
   lotteryData.runningNumbers.forEach((running) => {
     running.number.forEach((winningNumber) => {
       if (running.id === 'runningNumberBackTwo') {
@@ -44,8 +42,8 @@ const checkWinningNumber = (userNumber, lotteryData) => {
         }
       } else {
         if (
-          userNumber.slice(0, 3) === winningNumber || // หน้า
-          userNumber.slice(-3) === winningNumber      // หลัง
+          userNumber.slice(0, 3) === winningNumber ||
+          userNumber.slice(-3) === winningNumber
         ) {
           matchedPrizes.push({
             prizeName: running.name,
@@ -63,7 +61,7 @@ const LotteryChecker = () => {
   const [lotteryList, setLotteryList] = useState([]);
   const [lotteryDates, setLotteryDates] = useState([]);
   const [selectedDrawDate, setSelectedDrawDate] = useState("");
-  const [checkingResults, setCheckingResults] = useState({}); // เก็บผลการตรวจหวย
+  const [checkingResults, setCheckingResults] = useState({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -122,7 +120,7 @@ const LotteryChecker = () => {
           value={selectedDrawDate}
           onChange={(e) => {
             setSelectedDrawDate(e.target.value);
-            setCheckingResults({}); // reset ผลลัพธ์ถ้าเปลี่ยนงวด
+            setCheckingResults({});
           }}
           className="border p-2 rounded"
         >

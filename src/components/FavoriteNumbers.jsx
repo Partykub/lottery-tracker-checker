@@ -7,18 +7,15 @@ const FavoriteNumbers = () => {
   const [lottoResults, setLottoResults] = useState([]);
   const [matches, setMatches] = useState([]);
 
-  // โหลด favoriteNumbers จาก localStorage ตอนเริ่ม
   useEffect(() => {
     const storedFavorites = JSON.parse(localStorage.getItem("favoriteNumbers")) || [];
     setFavoriteNumbers(storedFavorites);
   }, []);
 
-  // ทุกครั้งที่ favoriteNumbers เปลี่ยน -> เซฟลง localStorage
   useEffect(() => {
     localStorage.setItem("favoriteNumbers", JSON.stringify(favoriteNumbers));
   }, [favoriteNumbers]);
 
-  // ดึงรายการผลหวยย้อนหลัง
   useEffect(() => {
     const fetchLottoDates = async () => {
       try {
@@ -35,7 +32,6 @@ const FavoriteNumbers = () => {
     fetchLottoDates();
   }, []);
 
-  // ดึงผลหวยย้อนหลังสำหรับ 5 งวดล่าสุด
   useEffect(() => {
     const fetchLottoResults = async (dateId) => {
       try {
@@ -54,7 +50,6 @@ const FavoriteNumbers = () => {
     }
   }, [lottoDates]);
 
-  // เพิ่มเลขโปรด
   const handleAddFavorite = () => {
     if (inputNumber.trim() !== "" && !favoriteNumbers.includes(inputNumber.trim())) {
       setFavoriteNumbers([...favoriteNumbers, inputNumber.trim()]);
@@ -62,13 +57,11 @@ const FavoriteNumbers = () => {
     }
   };
 
-  // ลบเลขโปรด
   const handleRemoveFavorite = (numberToRemove) => {
     const updatedFavorites = favoriteNumbers.filter(number => number !== numberToRemove);
     setFavoriteNumbers(updatedFavorites);
   };
 
-  // เปรียบเทียบเลขโปรดกับผลหวย
   useEffect(() => {
     const findMatches = () => {
       const foundMatches = [];
@@ -101,7 +94,6 @@ const FavoriteNumbers = () => {
         });
       });
 
-      // กำจัดซ้ำตรงนี้
       const uniqueMatches = foundMatches.filter((match, index, self) =>
         index === self.findIndex((m) =>
           m.number === match.number && m.prizeName === match.prizeName && m.drawDate === match.drawDate

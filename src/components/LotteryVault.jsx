@@ -30,7 +30,7 @@ const LotteryVault = () => {
   const [newNumber, setNewNumber] = useState("");
   const [drawDate, setDrawDate] = useState(getNextDrawDate());
   const [page, setPage] = useState(1);
-  const [editing, setEditing] = useState(null); // To track which item is being edited
+  const [editing, setEditing] = useState(null);
   const [editNumber, setEditNumber] = useState("");
   const [editDrawDate, setEditDrawDate] = useState("");
 
@@ -55,7 +55,7 @@ const LotteryVault = () => {
     setLotteryList(prev => [newEntry, ...prev]);
     setNewNumber("");
     setDrawDate(getNextDrawDate());
-    setPage(1); // Reset to page 1 after adding
+    setPage(1);
   };
 
   const deleteNumber = (id) => {
@@ -84,8 +84,6 @@ const LotteryVault = () => {
     return new Date(dateString).toLocaleDateString('th-TH', options);
   }
 
-
-  // Pagination logic
   const totalPages = Math.ceil(lotteryList.length / PAGE_SIZE);
   const paginatedList = lotteryList.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
@@ -121,7 +119,7 @@ const LotteryVault = () => {
           <p className="text-gray-500">ยังไม่มีเลขที่บันทึก</p>
         ) : (
           paginatedList
-            .sort((a, b) => new Date(b.drawDate) - new Date(a.drawDate)) // Sort by drawDate, newest first
+            .sort((a, b) => new Date(b.drawDate) - new Date(a.drawDate))
             .map((entry) => (
               <div key={entry.id} className="flex justify-between items-center border p-3 rounded">
                 <div>
@@ -176,7 +174,6 @@ const LotteryVault = () => {
         )}
       </div>
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex justify-center items-center gap-2 mt-6 flex-wrap">
           {Array.from({ length: totalPages }, (_, index) => (

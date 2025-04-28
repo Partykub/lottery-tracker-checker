@@ -13,7 +13,6 @@ export const fetchLatestLotteryResults = async () => {
 export const checkWinningNumber = (userNumber, lotteryData) => {
   const matchedPrizes = [];
 
-  // ตรวจรางวัลหลัก
   lotteryData.prizes.forEach((prize) => {
     prize.number.forEach((winningNumber) => {
       if (userNumber === winningNumber) {
@@ -25,11 +24,9 @@ export const checkWinningNumber = (userNumber, lotteryData) => {
     });
   });
 
-  // ตรวจรางวัลเลขหน้า 3 ตัว / เลขท้าย 3 ตัว / เลขท้าย 2 ตัว
   lotteryData.runningNumbers.forEach((running) => {
     running.number.forEach((winningNumber) => {
       if (running.id === 'runningNumberBackTwo') {
-        // รางวัลเลขท้าย 2 ตัว ตรวจแค่ 2 ตัวท้าย
         if (userNumber.slice(-2) === winningNumber) {
           matchedPrizes.push({
             prizeName: running.name,
@@ -37,10 +34,9 @@ export const checkWinningNumber = (userNumber, lotteryData) => {
           });
         }
       } else {
-        // รางวัลเลขหน้า/เลขท้าย 3 ตัว ตรวจ 3 ตัวหน้า/หลัง
         if (
-          userNumber.slice(0, 3) === winningNumber || // หน้า
-          userNumber.slice(-3) === winningNumber      // หลัง
+          userNumber.slice(0, 3) === winningNumber ||
+          userNumber.slice(-3) === winningNumber
         ) {
           matchedPrizes.push({
             prizeName: running.name,
@@ -54,7 +50,6 @@ export const checkWinningNumber = (userNumber, lotteryData) => {
   return matchedPrizes;
 };
 
-// ดึงผลสลากของงวดที่ระบุ
 export const fetchLotteryResultByDate = async (drawId) => {
   try {
     const response = await axios.get(`https://lotto.api.rayriffy.com/lotto/${drawId}`);
@@ -65,7 +60,6 @@ export const fetchLotteryResultByDate = async (drawId) => {
   }
 };
 
-// ดึงรายการงวด
 export const fetchLottoDates = async () => {
   try {
     const response = await fetch("https://lotto.api.rayriffy.com/list/1");
@@ -81,7 +75,6 @@ export const fetchLottoDates = async () => {
   }
 };
 
-// ดึงผลหวยตาม id งวด
 export const fetchLottoResultById = async (dateId) => {
   try {
     const response = await fetch(`https://lotto.api.rayriffy.com/lotto/${dateId}`);

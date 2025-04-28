@@ -73,7 +73,7 @@ const LotteryResults = () => {
         const dateId = e.target.value;
         try {
             const newResults = await fetchLottoResultById(dateId);
-            setResults(newResults); // อัปเดตผลลัพธ์ใหม่
+            setResults(newResults);
         } catch (error) {
             console.error("Error loading lotto results:", error);
         }
@@ -105,7 +105,7 @@ const LotteryResults = () => {
                     <span className="text-xl">เปลี่ยนงวด</span>
                     <select
                         className="py-2 px-4 bg-white border rounded-lg shadow w-60 me-10"
-                        onChange={handleChange} // ใช้งาน handleChange ที่เราเพิ่ม
+                        onChange={handleChange}
                         defaultValue=""
                     >
                         <option value="" disabled>
