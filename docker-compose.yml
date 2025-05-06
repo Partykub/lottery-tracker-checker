@@ -3,6 +3,6 @@ services:
   lottery-app:
     build: .
     ports:
-      - "80:5173"
+      - "80:80"
     container_name: lottery-tracker
     restart: unless-stopped
